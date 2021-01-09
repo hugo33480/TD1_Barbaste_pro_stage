@@ -21,7 +21,7 @@ class ProStageController extends AbstractController
      */
     public function afficherEntreprises(): Response
     {
-        return $this->render('pro_stage/afficherEntreprises.html.twig');
+        return $this->render('pro_stage/afficherParEntreprises.html.twig');
     }
 
     /**
@@ -29,7 +29,7 @@ class ProStageController extends AbstractController
      */
     public function afficherFormations(): Response
     {
-        return $this->render('pro_stage/afficherFormations.html.twig');
+        return $this->render('pro_stage/afficherParFormations.html.twig');
     }
 
     /**
