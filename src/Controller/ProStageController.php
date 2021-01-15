@@ -28,7 +28,7 @@ class ProStageController extends AbstractController
      */
     public function afficherEntreprises(): Response
     {
-        return $this->render('pro_stage/afficherParEntreprises.html.twig');
+        return $this->render('pro_stage/afficherEntreprises.html.twig');
     }
 
     /**
@@ -36,7 +36,7 @@ class ProStageController extends AbstractController
      */
     public function afficherFormations(): Response
     {
-        return $this->render('pro_stage/afficherParFormations.html.twig');
+        return $this->render('pro_stage/afficherFormations.html.twig');
     }
 
     /**
@@ -44,7 +44,11 @@ class ProStageController extends AbstractController
      */
     public function afficherDescriptifStage($id): Response
     {
+        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
+
+        // Récupérer les ressources enregistrées en BD
+        $stage = $repositoryStage->find($id);
         return $this->render('pro_stage/afficherDescriptifStage.html.twig',
-      ['idStage' => $id]);
+      ['stage' => $stage]);
     }
 }
