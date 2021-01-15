@@ -28,7 +28,11 @@ class ProStageController extends AbstractController
      */
     public function afficherEntreprises(): Response
     {
-        return $this->render('pro_stage/afficherEntreprises.html.twig');
+        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
+
+        // Récupérer les ressources enregistrées en BD
+        $stages = $repositoryStage->findAll();
+        return $this->render('pro_stage/afficherEntreprises.html.twig',['stages'=>$stages]);
     }
 
     /**
@@ -36,7 +40,11 @@ class ProStageController extends AbstractController
      */
     public function afficherFormations(): Response
     {
-        return $this->render('pro_stage/afficherFormations.html.twig');
+        $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
+
+        // Récupérer les ressources enregistrées en BD
+        $formations = $repositoryFormation->findAll();
+        return $this->render('pro_stage/afficherFormations.html.twig',['formations' => $formations]);
     }
 
     /**

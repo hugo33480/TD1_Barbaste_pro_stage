@@ -57,7 +57,7 @@ class AppFixtures extends Fixture
             $formations = array(
                      "1" => "DUT informatique",
                      "2" => "LP multimédia",
-                     "3" => "LP programmations avancé"
+                     "3" => "LP programmation avancée"
                    );
 
             foreach ($formations as $codeFormation => $nomFormation) {

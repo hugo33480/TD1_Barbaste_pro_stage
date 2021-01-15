@@ -2,4 +2,11 @@
 
 {% block body %}
 <h1> Cette page affichera la liste des entreprises proposant un stage </h1>
+
+<ul>
+  {% for stage in stages %}
+    <li> {{stage.entreprises.nom}} </li>
+  {% endfor %}
+</ul>
+
 {% endblock %}
