@@ -74,7 +74,7 @@ class AppFixtures extends Fixture
             // Création d'un nouveau stage
             $stage = new Stage();
             // Génération d'un intitulé de stage
-            $stage->setIntitule($faker->realText($maxNbChars = 150, $indexSize = 2));
+            $stage->setIntitule($faker->realText($maxNbChars = 20, $indexSize = 2));
             // Définition du'une mission
             $stage->setMission($faker->realText($maxNbChars = 300, $indexSize = 2));
             // Définition d'une adresse mail
