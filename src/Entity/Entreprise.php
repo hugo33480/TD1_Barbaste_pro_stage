@@ -30,7 +30,7 @@ class Entreprise
     private $activite;
 
     /**
-     * @ORM\Column(type="string", length=30, nullable=true)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     private $adresse;
 
