@@ -36,6 +36,18 @@ class ProStageController extends AbstractController
     }
 
     /**
+     * @Route("/stage/{nomEntreprise}", name="stagesParEntreprise")
+     */
+    public function afficherStagesParEntreprises($nomEntreprise): Response
+    {
+        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
+
+        // Récupérer les ressources enregistrées en BD
+        $stages = $repositoryStage->findByEntreprise($nomEntreprise);
+        return $this->render('pro_stage/afficherEntreprises.html.twig',['stages'=>$stages]);
+    }
+
+    /**
      * @Route("/Formations", name="formations")
      */
     public function afficherFormations(): Response
