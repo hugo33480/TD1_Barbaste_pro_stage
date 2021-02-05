@@ -44,7 +44,7 @@ class ProStageController extends AbstractController
 
         // Récupérer les ressources enregistrées en BD
         $stages = $repositoryStage->findByEntreprise($nomEntreprise);
-        return $this->render('pro_stage/afficherEntreprises.html.twig',['stages'=>$stages]);
+        return $this->render('pro_stage/afficherStagesParEntreprises.html.twig',['stages'=>$stages]);
     }
 
     /**
