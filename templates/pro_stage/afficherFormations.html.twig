@@ -3,10 +3,9 @@
 {% block body%}
 <h1> Cette page affichera la liste des formations de l'IUT </h1>
 
-
 <ul>
   {% for formation in formations %}
-    <li> {{formation.nom}} </li>
+    <li><a class="formation" href="{{ path('stagesParFormation',{'nomFormation': formation.nom}) }}">{{formation.nom}}</a></li>
   {% endfor %}
 </ul>
 

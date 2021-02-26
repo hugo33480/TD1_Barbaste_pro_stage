@@ -36,7 +36,7 @@ class ProStageController extends AbstractController
     }
 
     /**
-     * @Route("/stage/{nomEntreprise}", name="stagesParEntreprise")
+     * @Route("/stageE/{nomEntreprise}", name="stagesParEntreprise")
      */
     public function afficherStagesParEntreprises($nomEntreprise): Response
     {
@@ -60,6 +60,17 @@ class ProStageController extends AbstractController
     }
 
     /**
+     * @Route("/stageF/{nomFormation}", name="stagesParFormation")
+     */
+    public function afficherStagesParFormation($nomFormation): Response
+    {
+        $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
+        // Récupérer les ressources enregistrées en BD
+        $stages = $repositoryStage->findByFormation($nomFormation);
+        return $this->render('pro_stage/afficherStagesParFormation.html.twig',['stages'=>$stages]);
+    }
+
+    /**
      * @Route("/stage/{id}", name="descriptionStage")
      */
     public function afficherDescriptifStage($id): Response
@@ -71,4 +82,27 @@ class ProStageController extends AbstractController
         return $this->render('pro_stage/afficherDescriptifStage.html.twig',
       ['stage' => $stage]);
     }
+
+
+
+    /**
+     * @Route("/entreprise/ajouter", name="ajouterEntreprise")
+     */
+    public function ajouterEntreprise(): Response
+    {
+    // Création d'une ressource initialement vierge
+    $entreprise = new Entreprise ();
+
+    // création d'un objet formulaire pour saisir une ressource
+    $formulaireEntreprise = $this -> createFormBuilder ($entreprise)
+                                 -> add ('nom')
+                                 -> add ('activite')
+                                 -> add ('adresse')
+                                 -> add ('site')
+                                 -> getForm ();
+
+
+      return $this->render('pro_stage/ajouterEntreprise.html.twig',['$vueFormulaireEntreprise' => $formulaireEntreprise -> createView()]);
+  }
+
 }
