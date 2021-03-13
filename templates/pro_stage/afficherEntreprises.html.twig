@@ -5,7 +5,7 @@
 
 <ul>
   {% for stage in stages %}
-    <li><a class="entreprise" href="{{ path('stagesParEntreprise',{'nomEntreprise': stage.entreprises.nom}) }}">{{stage.entreprises.nom}}</a></li>
+    <li><p><a class="entreprise" href="{{ path('stagesParEntreprise',{'nomEntreprise': stage.entreprises.nom}) }}">{{stage.entreprises.nom}}</a> (<a class="modifEntreprise" href="{{ path('modifierEntreprise',{'id': stage.entreprises.id}) }}">modifier</a>)<p/></li>
   {% endfor %}
 </ul>
 

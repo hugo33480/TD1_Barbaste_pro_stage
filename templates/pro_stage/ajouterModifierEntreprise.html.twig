@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block titre %}
+
+{% if action == "ajouter" %}
+Ajout d'une entreprise 
+{% else %}
+Modification d'une entreprise
+{% endif %}
+{% endblock %}
+
+{% block body %}
+
+<center>
+{{ form_start ( vueFormulaireEntreprise ) }}
+  <p>{{ form_row ( vueFormulaireEntreprise.nom )}}<p/>
+  <p>{{ form_row ( vueFormulaireEntreprise.activite )}}<p/>
+  <p>{{ form_row ( vueFormulaireEntreprise.adresse )}}<p/>
+  <p>{{ form_row ( vueFormulaireEntreprise.site )}}<p/>
+{{ form_end ( vueFormulaireEntreprise )}}
+<center/>
+
+{% endblock %}

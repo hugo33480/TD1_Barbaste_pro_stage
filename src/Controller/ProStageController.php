@@ -2,12 +2,17 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Stage;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Request;
 
 class ProStageController extends AbstractController
 {
@@ -88,21 +93,65 @@ class ProStageController extends AbstractController
     /**
      * @Route("/entreprise/ajouter", name="ajouterEntreprise")
      */
-    public function ajouterEntreprise(): Response
+    public function ajouterEntreprise(Request $requeteHttp, EntityManagerInterface $entityManager): Response
     {
     // Création d'une ressource initialement vierge
     $entreprise = new Entreprise ();
 
     // création d'un objet formulaire pour saisir une ressource
-    $formulaireEntreprise = $this -> createFormBuilder ($entreprise)
-                                 -> add ('nom')
-                                 -> add ('activite')
-                                 -> add ('adresse')
-                                 -> add ('site')
-                                 -> getForm ();
+    $formulaireEntreprise = $this->createFormBuilder ($entreprise)
+                                 ->add ('nom', TextType::class)
+                                 ->add ('activite', TextType::class)
+                                 ->add ('adresse',TextType::class)
+                                 ->add ('site', UrlType::class)
+                                 ->add('enregistrer', SubmitType::class)
+                                 ->getForm ();
 
+    $formulaireEntreprise->handleRequest($requeteHttp);
 
-      return $this->render('pro_stage/ajouterEntreprise.html.twig',['$vueFormulaireEntreprise' => $formulaireEntreprise -> createView()]);
+    if($formulaireEntreprise->isSubmitted())
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($entreprise);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('pro_stage');
+    }
+
+      return $this->render('pro_stage/ajouterModifierEntreprise.html.twig',['vueFormulaireEntreprise' => $formulaireEntreprise->createView(),
+      'action' => "ajouter"]);
   }
+
+
+  /**
+   * @Route("/entreprise/modifier/{id}", name="modifierEntreprise")
+   */
+  public function modifierEntreprise(Request $requeteHttp, EntityManagerInterface $entityManager, Entreprise $entreprise): Response
+  {
+
+  // création d'un objet formulaire pour saisir une ressource
+  $formulaireEntreprise = $this->createFormBuilder ($entreprise)
+                               ->add ('nom', TextType::class)
+                               ->add ('activite', TextType::class)
+                               ->add ('adresse',TextType::class)
+                               ->add ('site', UrlType::class)
+                               ->add('enregistrer', SubmitType::class)
+                               ->getForm ();
+
+  $formulaireEntreprise->handleRequest($requeteHttp);
+
+  if($formulaireEntreprise->isSubmitted())
+  {
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->persist($entreprise);
+      $entityManager->flush();
+
+      return $this->redirectToRoute('pro_stage');
+  }
+
+    return $this->render('pro_stage/ajouterModifierEntreprise.html.twig',['vueFormulaireEntreprise' => $formulaireEntreprise->createView(),
+    'action' => "modifier"]);
+}
+
 
 }
