@@ -109,7 +109,7 @@ class ProStageController extends AbstractController
 
     $formulaireEntreprise->handleRequest($requeteHttp);
 
-    if($formulaireEntreprise->isSubmitted())
+    if($formulaireEntreprise->isSubmitted() && $formulaireEntreprise->isValid())
     {
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($entreprise);
