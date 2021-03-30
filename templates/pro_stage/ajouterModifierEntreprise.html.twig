@@ -16,10 +16,10 @@ Modification d'une entreprise
 
 <center>
 {{ form_start ( vueFormulaireEntreprise ) }}
-  <p>{{ form_row ( vueFormulaireEntreprise.nom )}}<p/>
-  <p>{{ form_row ( vueFormulaireEntreprise.activite )}}<p/>
-  <p>{{ form_row ( vueFormulaireEntreprise.adresse )}}<p/>
-  <p>{{ form_row ( vueFormulaireEntreprise.site )}}<p/>
+  <p>{{ form_row ( vueFormulaireEntreprise.nom, {'attr':{'placeholder':"nom de l'entreprise"}})}}<p/>
+  <p>{{ form_row ( vueFormulaireEntreprise.activite, {'attr':{'placeholder':"activite de l'entreprise"}})}}<p/>
+  <p>{{ form_row ( vueFormulaireEntreprise.adresse, {'attr':{'placeholder':"adresse complète de l'entreprise"}})}}<p/>
+  <p>{{ form_row ( vueFormulaireEntreprise.site, {'attr':{'placeholder':"site Internet de l'entreprise"}})}}<p/>
 {{ form_end ( vueFormulaireEntreprise )}}
 <center/>
 

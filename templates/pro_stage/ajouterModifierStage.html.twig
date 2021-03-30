@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<center><h1> ajouter un stage</h1></center>
+
+<center>
+{{ form_start ( vueFormulaireStage ) }}
+  <p>{{ form_row ( vueFormulaireStage.intitule, {'attr':{'placeholder':"intitule du stage"}})}}</p>
+  <p>{{ form_row ( vueFormulaireStage.mission, {'attr':{'placeholder':"mission du stage"}})}}</p>
+  <p>{{ form_row ( vueFormulaireStage.adresseMail, {'attr':{'placeholder':"adresse mail"}})}}</p>
+    <p>{{ form_row ( vueFormulaireStage.entreprises, {'label':"entreprise"})}}</p>
+    <p>{{ form_row ( vueFormulaireStage.formations, {'label':"Type de formation"})}}</p>
+{{ form_end ( vueFormulaireStage )}}
+</center>
+
+{% endblock %}

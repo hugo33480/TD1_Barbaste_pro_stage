@@ -13,6 +13,8 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\EntrepriseType;
+use App\Form\StageType;
 
 class ProStageController extends AbstractController
 {
@@ -99,13 +101,7 @@ class ProStageController extends AbstractController
     $entreprise = new Entreprise ();
 
     // création d'un objet formulaire pour saisir une ressource
-    $formulaireEntreprise = $this->createFormBuilder ($entreprise)
-                                 ->add ('nom', TextType::class)
-                                 ->add ('activite', TextType::class)
-                                 ->add ('adresse',TextType::class)
-                                 ->add ('site', UrlType::class)
-                                 ->add('enregistrer', SubmitType::class)
-                                 ->getForm ();
+    $formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
 
     $formulaireEntreprise->handleRequest($requeteHttp);
 
@@ -130,13 +126,7 @@ class ProStageController extends AbstractController
   {
 
   // création d'un objet formulaire pour saisir une ressource
-  $formulaireEntreprise = $this->createFormBuilder ($entreprise)
-                               ->add ('nom', TextType::class)
-                               ->add ('activite', TextType::class)
-                               ->add ('adresse',TextType::class)
-                               ->add ('site', UrlType::class)
-                               ->add('enregistrer', SubmitType::class)
-                               ->getForm ();
+  $formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
 
   $formulaireEntreprise->handleRequest($requeteHttp);
 
@@ -153,5 +143,31 @@ class ProStageController extends AbstractController
     'action' => "modifier"]);
 }
 
+
+/**
+ * @Route("/ajouterStage", name="ajouterStage")
+ */
+public function ajouterStage(Request $requeteHttp, EntityManagerInterface $entityManager): Response
+{
+// Création d'une ressource initialement vierge
+$stage = new Stage();
+
+// création d'un objet formulaire pour saisir une ressource
+$formulaireStage = $this->createForm(StageType::class, $stage);
+
+$formulaireStage->handleRequest($requeteHttp);
+
+if($formulaireStage->isSubmitted() && $formulaireStage->isValid())
+{
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($stage);
+    $entityManager->flush();
+
+    return $this->redirectToRoute('pro_stage');
+}
+
+  return $this->render('pro_stage/ajouterModifierStage.html.twig',['vueFormulaireStage' => $formulaireStage->createView(),
+  'action' => "ajouter"]);
+}
 
 }
