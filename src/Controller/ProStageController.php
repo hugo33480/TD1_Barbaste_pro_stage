@@ -24,8 +24,6 @@ class ProStageController extends AbstractController
     public function index(): Response
     {
         $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
-
-        // Récupérer les ressources enregistrées en BD
         $stages = $repositoryStage->findAll();
         return $this->render('pro_stage/index.html.twig',['stages'=>$stages]);
     }
@@ -36,8 +34,6 @@ class ProStageController extends AbstractController
     public function afficherEntreprises(): Response
     {
         $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
-
-        // Récupérer les ressources enregistrées en BD
         $stages = $repositoryStage->findAll();
         return $this->render('pro_stage/afficherEntreprises.html.twig',['stages'=>$stages]);
     }
@@ -48,8 +44,6 @@ class ProStageController extends AbstractController
     public function afficherStagesParEntreprises($nomEntreprise): Response
     {
         $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
-
-        // Récupérer les ressources enregistrées en BD
         $stages = $repositoryStage->findByEntreprise($nomEntreprise);
         return $this->render('pro_stage/afficherStagesParEntreprises.html.twig',['stages'=>$stages]);
     }
@@ -60,8 +54,6 @@ class ProStageController extends AbstractController
     public function afficherFormations(): Response
     {
         $repositoryFormation = $this->getDoctrine()->getRepository(Formation::class);
-
-        // Récupérer les ressources enregistrées en BD
         $formations = $repositoryFormation->findAll();
         return $this->render('pro_stage/afficherFormations.html.twig',['formations' => $formations]);
     }
@@ -72,7 +64,6 @@ class ProStageController extends AbstractController
     public function afficherStagesParFormation($nomFormation): Response
     {
         $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
-        // Récupérer les ressources enregistrées en BD
         $stages = $repositoryStage->findByFormation($nomFormation);
         return $this->render('pro_stage/afficherStagesParFormation.html.twig',['stages'=>$stages]);
     }
@@ -83,24 +74,18 @@ class ProStageController extends AbstractController
     public function afficherDescriptifStage($id): Response
     {
         $repositoryStage = $this->getDoctrine()->getRepository(Stage::class);
-
-        // Récupérer les ressources enregistrées en BD
         $stage = $repositoryStage->find($id);
         return $this->render('pro_stage/afficherDescriptifStage.html.twig',
       ['stage' => $stage]);
     }
 
-
-
     /**
-     * @Route("/entreprise/ajouter", name="ajouterEntreprise")
+     * @Route("/admin/entreprise/ajouter", name="ajouterEntreprise")
      */
     public function ajouterEntreprise(Request $requeteHttp, EntityManagerInterface $entityManager): Response
     {
-    // Création d'une ressource initialement vierge
     $entreprise = new Entreprise ();
 
-    // création d'un objet formulaire pour saisir une ressource
     $formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
 
     $formulaireEntreprise->handleRequest($requeteHttp);
@@ -124,8 +109,6 @@ class ProStageController extends AbstractController
    */
   public function modifierEntreprise(Request $requeteHttp, EntityManagerInterface $entityManager, Entreprise $entreprise): Response
   {
-
-  // création d'un objet formulaire pour saisir une ressource
   $formulaireEntreprise = $this->createForm(EntrepriseType::class, $entreprise);
 
   $formulaireEntreprise->handleRequest($requeteHttp);
@@ -149,10 +132,8 @@ class ProStageController extends AbstractController
  */
 public function ajouterStage(Request $requeteHttp, EntityManagerInterface $entityManager): Response
 {
-// Création d'une ressource initialement vierge
 $stage = new Stage();
 
-// création d'un objet formulaire pour saisir une ressource
 $formulaireStage = $this->createForm(StageType::class, $stage);
 
 $formulaireStage->handleRequest($requeteHttp);
