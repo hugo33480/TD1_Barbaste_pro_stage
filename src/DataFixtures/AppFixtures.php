@@ -7,11 +7,29 @@ use Doctrine\Persistence\ObjectManager;
 use App\Entity\Stage;
 use App\Entity\Entreprise;
 use App\Entity\Formation;
+use App\Entity\User;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        //création de deux users
+        $hugo = new User();
+        $hugo->setNom("Barbaste");
+        $hugo->setPrenom("hugo");
+        $hugo->setEmail("barbastehugo@gmail.com");
+        $hugo->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $hugo->setPassword('$2y$10$u0O10rmadTjeSmaavbh5..JzYuApeLGvt.DIsBUuOZU3belbNGmSW');
+        $manager->persist($hugo);
+
+        $dupont = new User();
+        $dupont->setNom("Barbaste");
+        $dupont->setPrenom("dupont");
+        $dupont->setEmail("barbastedupont@gmail.com");
+        $dupont->setRoles(['ROLE_USER']);
+        $dupont->setPassword('$2y$10$hva1uuVvDUUxk0zBZJZpteluGHNBE8FsMXodGwiBphoOLjWN8/MV6');
+        $manager->persist($dupont);
+
         //creation d'un generateur de donnée
         $faker = \Faker\Factory::create('fr_FR'); // create a French faker
 
