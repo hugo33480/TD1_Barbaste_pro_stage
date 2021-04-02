@@ -43,12 +43,12 @@ class User implements UserInterface
      * @Assert\Regex(
      * pattern="/[0-9]/",
      * match=true,
-     * message="le mot de passe doit contenir au moin 1 chiffre"
+     * message="le mot de passe doit contenir au moins 1 chiffre"
      * )
      * @Assert\Regex(
      * pattern="/[A-Z]/",
      * match=true,
-     * message="le mot de passe doit contenir au moin 1 majuscule"
+     * message="le mot de passe doit contenir au moins 1 majuscule"
      * )
      */
     private $password;

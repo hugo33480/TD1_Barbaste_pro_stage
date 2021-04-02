@@ -5,7 +5,7 @@
 
 <ul>
   {% for formation in formations %}
-    <li><a class="formation" href="{{ path('stagesParFormation',{'nomFormation': formation.nom}) }}">{{formation.nom}}</a></li>
+    <li><a class="formation" href="{{ path('stagesParFormation',{'nomFormation': formation.nom}) }}">{{formation.nom}}</a> (<a class="formation" href="{{ path('formation_new',{'id': formation.id}) }}">voir</a> | <a class="formation" href="{{ path('formation_edit',{'id': formation.id}) }}">modifier</a> | <a class="formation" href="{{ path('formation_delete',{'id': formation.id}) }}">supprimer</a> | <a class="formation" href="{{ path('formation_new') }}">ajouter</a>)</li> 
   {% endfor %}
 </ul>
 
