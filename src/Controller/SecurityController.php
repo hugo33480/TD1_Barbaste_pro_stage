@@ -11,6 +11,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\UserType;
 use App\Entity\User;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
@@ -42,24 +43,25 @@ class SecurityController extends AbstractController
     /**
     * @Route("/inscription", name="app_inscription")
     */
-    public function inscription(Request $requeteHttp, EntityManagerInterface $entityManager): Response
+    public function inscription(Request $requeteHttp, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $encoder): Response
     {
-        $user = new User();
+        $utilisateur = new User();
 
-        $formulaireUser = $this->createForm(UserType::class, $user);
+        $formulaireUser = $this->createForm(UserType::class, $utilisateur);
 
         $formulaireUser->handleRequest($requeteHttp);
 
         if($formulaireUser->isSubmitted() && $formulaireUser->isValid())
         {
+            $encodagePassword = $encoder->encodePassword($utilisateur, $utilisateur->getPassword());
+            $utilisateur->setPassword($encodagePassword);
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
+            $entityManager->persist($utilisateur);
             $entityManager->flush();
 
             return $this->redirectToRoute('pro_stage');
         }
 
-          return $this->render('security/inscription.html.twig',['vueFormulaireUser' => $formulaireUser->createView(),
-          'action' => "ajouter"]);
+          return $this->render('security/inscription.html.twig',['vueFormulaireUser' => $formulaireUser->createView()]);
     }
 }

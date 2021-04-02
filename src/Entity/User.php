@@ -41,12 +41,12 @@ class User implements UserInterface
      * maxMessage = "le mot de passe doit faire au plus  {{ limit }} caractères"
      * )
      * @Assert\Regex(
-     * pattern="/#[0-9]#/",
+     * pattern="/[0-9]/",
      * match=true,
      * message="le mot de passe doit contenir au moin 1 chiffre"
      * )
      * @Assert\Regex(
-     * pattern="/#[A-Z]#/",
+     * pattern="/[A-Z]/",
      * match=true,
      * message="le mot de passe doit contenir au moin 1 majuscule"
      * )
